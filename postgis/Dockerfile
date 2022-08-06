@@ -1,45 +1,46 @@
-FROM postgres:9.5
+FROM postgres:10.0
 
 RUN apt-get update \
   && apt-get -y --no-install-recommends install \
-    build-essential \
-    git \
-    # PostgreSQL
-    libpq-dev \
-    libpq5 \
-    postgresql-contrib-9.5 \
-    postgresql-plpython-9.5 \
-    postgresql-server-dev-9.5 \
-    # GIS:
-    # - Proj
-    libproj-dev \
-    proj-bin \
-    proj-data \
-    # - JSON
-    libjson-c3 \
-    libjson-c-dev \
-    python-simplejson \
-    # - GEOS
-    libgeos-c1v5 \
-    libgeos-dev \
-    # - GDAL
-    libgdal20 \
-    gdal-bin \
-    libgdal-dev \
-    # PostGIS
-    liblwgeom-2.3\* \
-    libxml2-dev \
-    postgis-2.3 \
-    postgresql-9.5-postgis-2.3 \
-    postgresql-9.5-postgis-2.3-scripts \
+  build-essential \
+  git \
+  # PostgreSQL
+  libpq-dev \
+  libpq5 \
+  postgresql-contrib-10 \
+  postgresql-plpython-10 \
+  postgresql-server-dev-10 \
+  # GIS:
+  # - Proj
+  libproj-dev \
+  proj-bin \
+  proj-data \
+  # - JSON
+  libjson-c3 \
+  libjson-c-dev \
+  python-simplejson \
+  # - GEOS
+  libgeos-c1v5 \
+  libgeos-dev \
+  # - GDAL
+  libgdal20 \
+  gdal-bin \
+  libgdal-dev \
+  # PostGIS
+  liblwgeom-2.4\* \
+  libxml2-dev \
+  postgis-2.4 \
+  postgresql-10-postgis-2.4 \
+  postgresql-10-postgis-2.4-scripts \
   && rm -rf /var/lib/apt/lists/*
 
 # CartoDB/cartodb-postgresql version
-ENV CARTODB_POSTGRESQL_VERSION=0.22.0
+ENV CARTODB_POSTGRESQL_VERSION=0.37.1
 
 RUN git clone \
-    --branch ${CARTODB_POSTGRESQL_VERSION} \
-    --depth 1 git://github.com/CartoDB/cartodb-postgresql.git \
+  -c http.sslVerify=false \
+  --branch ${CARTODB_POSTGRESQL_VERSION} \
+  --depth 1 https://github.com/CartoDB/cartodb-postgresql.git \
   && cd cartodb-postgresql \
   && make all install \
   && mkdir -p /docker-entrypoint-initdb.d

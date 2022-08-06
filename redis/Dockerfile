@@ -1,4 +1,4 @@
-FROM redis:3.2
+FROM redis:latest
 
 # Configure Redis to run with persistence.
 ENTRYPOINT [ \

@@ -1,7 +1,7 @@
 FROM buildpack-deps:stretch
 
 # Install Node (>= 6.9)
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
   && apt-get install -y nodejs \
   && rm -rf /var/lib/apt/lists/*
 
@@ -10,7 +10,7 @@ ENV CARTODB_SQL_API_VERSION=2.0.0
 
 RUN mkdir /CartoDB-SQL-API \
   && curl -L https://github.com/CartoDB/CartoDB-SQL-API/archive/${CARTODB_SQL_API_VERSION}.tar.gz \
-    | tar -zx --strip-components=1 -C CartoDB-SQL-API \
+  | tar -zx --strip-components=1 -C CartoDB-SQL-API \
   && cd /CartoDB-SQL-API \
   && npm install
 
