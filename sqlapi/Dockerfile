@@ -1,12 +1,25 @@
 FROM buildpack-deps:stretch
 
-# Install Node (>= 6.9)
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
-  && apt-get install -y nodejs \
+  && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+  && apt-get update \
+  && apt-get -y --no-install-recommends install \
+  build-essential \
+  git \
+  libcairo2-dev \
+  libgif-dev \
+  libjpeg-dev \
+  libpango1.0-dev \
+  libpixman-1-0 \
+  libpixman-1-dev \
+  nodejs \
+  yarn=0.27.5-1 \
   && rm -rf /var/lib/apt/lists/*
 
+#
 # CartoDB/CartoDB-SQL-API version
-ENV CARTODB_SQL_API_VERSION=2.0.0
+ENV CARTODB_SQL_API_VERSION=6.0.2
 
 RUN mkdir /CartoDB-SQL-API \
   && curl -L https://github.com/CartoDB/CartoDB-SQL-API/archive/${CARTODB_SQL_API_VERSION}.tar.gz \

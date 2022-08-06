@@ -87,10 +87,10 @@ ENV PATH=/opt/rubies/ruby-2.4/bin:$PATH
 RUN gem install bundler compass
 
 # CartoDB/cartodb version
-ENV CARTODB_VERSION=4.11.128
+ENV CARTODB_VERSION=4.45.0
 
 # Download the Editor program, using the specified release tag.
-RUN git clone --recursive --branch v${CARTODB_VERSION} --depth 1 https://github.com/CartoDB/cartodb.git
+RUN git clone -c http.sslVerify=false --recursive --branch v${CARTODB_VERSION} --depth 1 https://github.com/CartoDB/cartodb.git
 
 WORKDIR /cartodb
 

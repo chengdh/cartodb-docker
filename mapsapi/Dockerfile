@@ -18,7 +18,7 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
   && rm -rf /var/lib/apt/lists/*
 
 # CartoDB/Windshaft-cartodb version
-ENV WINDSHAFT_CARTODB_VERSION=5.3.1
+ENV WINDSHAFT_CARTODB_VERSION=9.0.0
 
 # Install the application.
 RUN mkdir /Windshaft-cartodb \
