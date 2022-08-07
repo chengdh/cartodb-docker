@@ -124,8 +124,9 @@ RUN CPLUS_INCLUDE_PATH=/usr/include/gdal \
   pip install  --no-use-wheel  -r python_requirements.txt \
   # Build the project.
   && bundle install \
-  && PATH=$PATH:/cartodb/node_modules/grunt-cli/bin \
-  bundle exec grunt --environment=${RAILS_ENV} \
+  && npm run carto-node && npm run build:static \
+  # && PATH=$PATH:/cartodb/node_modules/grunt-cli/bin \
+  # bundle exec grunt --environment=${RAILS_ENV} \
   # Clean up.
   && rm -rf \
   /root/.cache \
