@@ -112,7 +112,7 @@ RUN bundle install
 # Install Node dependencies.
 RUN yarn install
 # Add dependencies of configuration merge script.
-RUN yarn install \
+RUN yarn add \
   js-yaml \
   yargs
 # Install Python dependencies.
