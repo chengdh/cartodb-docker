@@ -2,7 +2,7 @@ FROM ubuntu:16.04
 
 # Set locale.
 RUN apt-get clean && apt-get update && apt-get install -y locales software-properties-common curl
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
   && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
   && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 RUN locale-gen en_US.UTF-8 && update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 \
@@ -63,7 +63,7 @@ RUN locale-gen en_US.UTF-8 && update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 
   libpixman-1-0 \
   libpixman-1-dev \
   nodejs \
-  yarn=0.27.5-1 \
+  yarn \
   # Ruby dependencies
   libreadline6-dev \
   openssl \
@@ -95,23 +95,28 @@ ENV CARTODB_VERSION=4.45.0
 
 # Download the Editor program, using the specified release tag.
 # RUN git clone -c http.sslVerify=false --recursive --branch v${CARTODB_VERSION} --depth 1 https://github.com/CartoDB/cartodb.git
-RUN git clone -c http.sslVerify=false --branch v${CARTODB_VERSION} --depth 1 https://github.com/CartoDB/cartodb.git
+# RUN git clone -c http.sslVerify=false --branch v${CARTODB_VERSION} --depth 1 https://github.com/CartoDB/cartodb.git
 
 WORKDIR /cartodb
+ADD Gemfile /cartodb/
+ADD Gemfile.lock /cartodb/
+ADD package.json /cartodb/
+ADD package-lock.json /cartodb/
+ADD lib /cartodb/lib/
 
 # Environment type.
 ENV RAILS_ENV=development
 
 # Install Ruby dependencies.
-RUN bundle install \
-  # Install Node dependencies.
-  && yarn install \
-  # Add dependencies of configuration merge script.
-  && yarn install \
+RUN bundle install
+# Install Node dependencies.
+RUN yarn install
+# Add dependencies of configuration merge script.
+RUN yarn install \
   js-yaml \
-  yargs \
-  # Install Python dependencies.
-  && CPLUS_INCLUDE_PATH=/usr/include/gdal \
+  yargs
+# Install Python dependencies.
+RUN CPLUS_INCLUDE_PATH=/usr/include/gdal \
   C_INCLUDE_PATH=/usr/include/gdal \
   PATH=$PATH:/usr/include/gdal \
   pip install -r python_requirements.txt \

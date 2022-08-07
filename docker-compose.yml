@@ -31,6 +31,8 @@ services:
     container_name: cartodb-editor
     build:
       context: editor
+    volumes:
+      - /workspaces/cartodb:/cartodb
   cartodb-router:
     depends_on:
       - cartodb-mapsapi
