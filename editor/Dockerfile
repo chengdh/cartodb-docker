@@ -1,8 +1,11 @@
 FROM ubuntu:16.04
 
 # Set locale.
-RUN apt-get clean && apt-get update && apt-get install -y locales software-properties-common
-RUN locale-gen en_US.UTF-8 && update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 \
+RUN apt-get clean && apt-get update && apt-get install -y locales software-properties-common curl
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
+  && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+  RUN locale-gen en_US.UTF-8 && update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 \
   # Install python-software-properties package to make it easier to use PPAs.
   && apt-get update && apt-get -y --no-install-recommends install \
   python-software-properties \
@@ -60,6 +63,7 @@ RUN locale-gen en_US.UTF-8 && update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 
   libpixman-1-0 \
   libpixman-1-dev \
   nodejs \
+  yarn=0.27.5-1 \
   # Ruby dependencies
   libreadline6-dev \
   openssl \
@@ -101,9 +105,9 @@ ENV RAILS_ENV=development
 # Install Ruby dependencies.
 RUN bundle install \
   # Install Node dependencies.
-  && npm install \
+  && yarn install \
   # Add dependencies of configuration merge script.
-  && npm install \
+  && yarn install \
   js-yaml \
   yargs \
   # Install Python dependencies.
