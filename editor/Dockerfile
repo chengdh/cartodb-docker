@@ -117,6 +117,7 @@ RUN yarn install
 RUN yarn add \
   js-yaml \
   yargs
+RUN npm run carto-node && npm run build:static
 # Install Python dependencies.
 RUN CPLUS_INCLUDE_PATH=/usr/include/gdal \
   C_INCLUDE_PATH=/usr/include/gdal \
@@ -124,9 +125,8 @@ RUN CPLUS_INCLUDE_PATH=/usr/include/gdal \
   pip install  --no-use-wheel  -r python_requirements.txt \
   # Build the project.
   && bundle install \
-  && npm run carto-node && npm run build:static \
-  # && PATH=$PATH:/cartodb/node_modules/grunt-cli/bin \
-  # bundle exec grunt --environment=${RAILS_ENV} \
+  && PATH=$PATH:/cartodb/node_modules/grunt-cli/bin \
+  bundle exec grunt --environment=${RAILS_ENV} \
   # Clean up.
   && rm -rf \
   /root/.cache \
