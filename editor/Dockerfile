@@ -26,7 +26,7 @@ RUN locale-gen en_US.UTF-8 && update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 
   make \
   pkg-config \
   gcc-4.9 \
-  # g++-4.9 \
+  g++-4.9 \
   # Git
   git \
   # PostgreSQL
@@ -121,7 +121,7 @@ RUN yarn add \
 RUN CPLUS_INCLUDE_PATH=/usr/include/gdal \
   C_INCLUDE_PATH=/usr/include/gdal \
   PATH=$PATH:/usr/include/gdal \
-  pip install -r python_requirements.txt \
+  pip install  --no-use-wheel  -r python_requirements.txt \
   # Build the project.
   && bundle install \
   && PATH=$PATH:/cartodb/node_modules/grunt-cli/bin \
