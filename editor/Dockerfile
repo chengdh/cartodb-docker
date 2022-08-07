@@ -77,8 +77,8 @@ RUN locale-gen en_US.UTF-8 && update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 
   unzip \
   wget \
   # Install Ruby.
-  ruby2.4 \
-  ruby2.4-dev \
+  ruby2.6 \
+  ruby2.6-dev \
   ruby-bundler \
   # Install Pip.
   python-pip
@@ -87,7 +87,7 @@ RUN apt-get install -y  python-setuptools
 
 ENV CC=/usr/bin/gcc-4.9
 ENV CXX=/usr/bin/g++-4.9
-ENV PATH=/opt/rubies/ruby-2.4/bin:$PATH
+ENV PATH=/opt/rubies/ruby-2.6/bin:$PATH
 
 # Install Ruby utilities.
 RUN gem install compass
