@@ -14,17 +14,18 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
   libpixman-1-0 \
   libpixman-1-dev \
   nodejs \
-  yarn=0.27.5-1 \
+  yarn \
   && rm -rf /var/lib/apt/lists/*
 
 # CartoDB/Windshaft-cartodb version
 ENV WINDSHAFT_CARTODB_VERSION=9.0.0
 
 # Install the application.
-RUN mkdir /Windshaft-cartodb \
-  && curl -L https://github.com/CartoDB/Windshaft-cartodb/archive/${WINDSHAFT_CARTODB_VERSION}.tar.gz \
-  | tar -zx --strip-components=1 -C Windshaft-cartodb \
-  && cd /Windshaft-cartodb \
+# RUN mkdir /Windshaft-cartodb \
+#   && curl -L https://github.com/CartoDB/Windshaft-cartodb/archive/${WINDSHAFT_CARTODB_VERSION}.tar.gz \
+#   | tar -zx --strip-components=1 -C Windshaft-cartodb \
+RUN  git clone -c http.sslVerify=false https://github.com/CartoDB/Windshaft-cartodb.git \
+  && cd Windshaft-cartodb \
   && npm install \
   && mkdir /Windshaft-cartodb/logs
 

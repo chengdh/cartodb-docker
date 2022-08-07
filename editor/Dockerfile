@@ -114,9 +114,9 @@ RUN bundle install
 # Install Node dependencies.
 RUN yarn install
 # Add dependencies of configuration merge script.
-RUN yarn add \
-  js-yaml \
-  yargs
+# RUN yarn add \
+#   js-yaml \
+#   yargs
 
 RUN npm run carto-node && npm run build:static
 # RUN PATH=$PATH:/cartodb/node_modules/grunt-cli/bin \
