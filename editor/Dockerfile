@@ -95,14 +95,14 @@ ENV CARTODB_VERSION=4.45.0
 
 # Download the Editor program, using the specified release tag.
 # RUN git clone -c http.sslVerify=false --recursive --branch v${CARTODB_VERSION} --depth 1 https://github.com/CartoDB/cartodb.git
-# RUN git clone -c http.sslVerify=false --branch v${CARTODB_VERSION} --depth 1 https://github.com/CartoDB/cartodb.git
+RUN git clone -c http.sslVerify=false --branch v${CARTODB_VERSION} --depth 1 https://github.com/CartoDB/cartodb.git
 
 WORKDIR /cartodb
-ADD Gemfile /cartodb/
-ADD Gemfile.lock /cartodb/
-ADD package.json /cartodb/
-ADD package-lock.json /cartodb/
-ADD lib /cartodb/lib/
+# ADD Gemfile /cartodb/
+# ADD Gemfile.lock /cartodb/
+# ADD package.json /cartodb/
+# ADD package-lock.json /cartodb/
+# ADD lib /cartodb/lib/
 
 # Environment type.
 ENV RAILS_ENV=development
