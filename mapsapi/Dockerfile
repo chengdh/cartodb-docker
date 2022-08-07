@@ -25,7 +25,7 @@ RUN mkdir /Windshaft-cartodb \
   && curl -L https://github.com/CartoDB/Windshaft-cartodb/archive/${WINDSHAFT_CARTODB_VERSION}.tar.gz \
   | tar -zx --strip-components=1 -C Windshaft-cartodb \
   && cd /Windshaft-cartodb \
-  && yarn \
+  && npm install \
   && mkdir /Windshaft-cartodb/logs
 
 # Copy resources.

@@ -1,12 +1,13 @@
-FROM ubuntu:12.04
+FROM ubuntu:16.04
 
 # Set locale.
+RUN apt-get clean && apt-get update && apt-get install -y locales software-properties-common
 RUN locale-gen en_US.UTF-8 && update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 \
   # Install python-software-properties package to make it easier to use PPAs.
   && apt-get update && apt-get -y --no-install-recommends install \
   python-software-properties \
   # Add PPAs.
-  && add-apt-repository ppa:cartodb/gcc \
+  # && add-apt-repository ppa:cartodb/gcc \
   && add-apt-repository ppa:cartodb/gis \
   && add-apt-repository ppa:cartodb/nodejs \
   && add-apt-repository ppa:cartodb/postgresql-10 \
@@ -19,8 +20,10 @@ RUN locale-gen en_US.UTF-8 && update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 
   bison \
   build-essential \
   flex \
+  make \
+  pkg-config \
   gcc-4.9 \
-  g++-4.9 \
+  # g++-4.9 \
   # Git
   git \
   # PostgreSQL
@@ -30,10 +33,10 @@ RUN locale-gen en_US.UTF-8 && update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 
   postgresql-client-common \
   # GIS:
   # - Proj
-  proj \
-  proj-bin \
-  proj-data \
-  libproj-dev \
+  # proj \
+  # proj-bin \
+  # proj-data \
+  # libproj-dev \
   # - JSON
   libjson0 \
   libjson0-dev \
@@ -84,7 +87,7 @@ ENV CXX=/usr/bin/g++-4.9
 ENV PATH=/opt/rubies/ruby-2.4/bin:$PATH
 
 # Install Ruby utilities.
-RUN gem install bundler compass
+RUN gem install compass
 
 # CartoDB/cartodb version
 ENV CARTODB_VERSION=4.45.0
