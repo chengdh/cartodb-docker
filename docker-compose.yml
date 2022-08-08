@@ -40,4 +40,4 @@ services:
     build:
       context: router
     ports:
-      - 80:80
+      - 8000:80
