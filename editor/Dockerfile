@@ -79,7 +79,7 @@ RUN locale-gen en_US.UTF-8 && update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 
   # Install Ruby.
   ruby2.6 \
   ruby2.6-dev \
-  ruby-bundler \
+  # ruby-bundler \
   # Install Pip.
   python-pip
 
@@ -91,6 +91,7 @@ ENV PATH=/opt/rubies/ruby-2.6/bin:$PATH
 
 # Install Ruby utilities.
 RUN gem install compass
+RUN gem install bundler -v 1.11.2 
 
 # CartoDB/cartodb version
 ENV CARTODB_VERSION=4.45.0
@@ -143,17 +144,17 @@ EXPOSE 3000
 # We configure the application using just the base config files here. Additional configuration files
 # can be merged with the base by supplying their filenames as --app_config or --database option
 # arguments in the CMD.
-ENTRYPOINT [ \
-  "./docker-entrypoint.sh", \
-  "--app_config", "base.app_config.yml", \
-  "--database", "base.database.yml" \
-  ]
+# ENTRYPOINT [ \
+#   "./docker-entrypoint.sh", \
+#   "--app_config", "base.app_config.yml", \
+#   "--database", "base.database.yml" \
+#   ]
 
 # We merge the sample config files with the base configs by default.
 # Custom configuration may be used by extending this image as follows:
 # 1) COPY one or more config files into /cartodb/config/.
 # 2) Pass the filename(s) as --app_config or --database option arguments in the CMD.
-CMD [ \
-  "--app_config", "app_config.yml.sample", \
-  "--database", "database.yml.sample" \
-  ]
+# CMD [ \
+#   "--app_config", "app_config.yml.sample", \
+#   "--database", "database.yml.sample" \
+#   ]
