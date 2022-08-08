@@ -26,4 +26,4 @@ echo "Starting Resque..."
 bundle exec ./script/resque &
 
 echo "Starting the application..."
-bundle exec rails server
+exec bundle exec rails server
