@@ -27,7 +27,7 @@ const {
   .describe('p', 'port on which the app will be exposed')
   .alias('p', 'public_port')
   .demand(['a', 'd'])
-  .argv;
+    .argv;
 
 const appConfigFiles = app_config.map(createAbsoluteFilepath);
 const dbConfigFiles = database.map(createAbsoluteFilepath);
@@ -40,13 +40,13 @@ const PUBLIC_PORT = public_port || process.env.PUBLIC_PORT || '80';
 // or the URL won't work.
 const PUBLIC_URL = (
   PUBLIC_PORT == '80'
-  ? PUBLIC_HOST
-  : `${PUBLIC_HOST}:${PUBLIC_PORT}`
+    ? PUBLIC_HOST
+    : `${PUBLIC_HOST}:${PUBLIC_PORT}`
 );
 const PORT_IF_NOT_DEFAULT = (
   PUBLIC_PORT == '80'
-  ? null
-  : PUBLIC_PORT
+    ? null
+    : PUBLIC_PORT
 );
 
 const DEFAULT_USER = process.env.DEFAULT_USER || 'username';

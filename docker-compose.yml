@@ -33,7 +33,8 @@ services:
       context: editor
     ports:
       - 3001:3000
-      - 81:80
+    volumes:
+      - /code:/cartodb
 
   cartodb-router:
     depends_on:
@@ -44,4 +45,4 @@ services:
     build:
       context: router
     ports:
-      - 8000:80
+      - 8090:80
