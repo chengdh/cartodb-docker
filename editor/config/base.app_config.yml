@@ -15,23 +15,17 @@ defaults: &defaults
       protocol: http
       domain: cartodb-mapsapi
       host: cartodb-mapsapi
-    private:
+    private: &routing_defaults
       protocol: http
-      domain: cartodb-mapsapi
-      port: 80
+      domain: ${PUBLIC_HOST}
+      port: ${PUBLIC_PORT}
     public:
-      protocol: http
-      domain: cartodb-mapsapi
-      port: 80
+      <<: *routing_defaults
   sql_api:
     private:
-      protocol: http
-      domain: cartodb-sqlapi
-      port: 80
+      <<: *routing_defaults
     public:
-      protocol: http
-      domain: cartodb-sqlapi
-      port: 80
+      <<: *routing_defaults
   redis:
     host: cartodb-redis
   org_metadata_api:

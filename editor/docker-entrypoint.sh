@@ -16,14 +16,14 @@ DEFAULT_USER=$DEFAULT_USER \
   node docker-entrypoint-util/configure $@
 
 echo "Initializing the metadata database..."
-bundle exec rake db:create
-bundle exec rake db:migrate
+RAILS_ENV=development bundle exec rake db:create
+RAILS_ENV=development  bundle exec rake db:migrate
 
 echo "Creating the default user, who will own the common data..."
 script/create_dev_user "$DEFAULT_USER" "$PASSWORD" "$EMAIL"
 
 echo "Starting Resque..."
-bundle exec ./script/resque &
+RAILS_ENV=development  bundle exec ./script/resque &
 
 echo "Starting the application..."
-bundle exec rails server
+RAILS_ENV=development bundle exec rails server
