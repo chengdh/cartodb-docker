@@ -31,10 +31,10 @@ services:
     container_name: cartodb-editor
     build:
       context: editor
+    environment:
+      - PUBLIC_PORT=3000
     ports:
       - 3001:3000
-    volumes:
-      - /code:/cartodb
 
   cartodb-router:
     depends_on:

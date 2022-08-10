@@ -101,8 +101,12 @@ ENV CARTODB_VERSION=4.45.0
 # RUN git clone -c http.sslVerify=false --branch v${CARTODB_VERSION} --depth 1 https://github.com/CartoDB/cartodb.git
 RUN git clone -c http.sslVerify=false https://github.com/CartoDB/cartodb.git
 
-WORKDIR /cartodb
 
+RUN cd /cartodb
+RUN cp /cartodb/config/app_config.yml.sample /cartodb/config/app_config.yml
+RUN cp /cartodb/config/database.yml.sample /cartodb/config/database.yml
+
+WORKDIR /cartodb
 # Environment type.
 ENV RAILS_ENV=development
 
