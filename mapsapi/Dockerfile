@@ -35,7 +35,7 @@ COPY docker-entrypoint.sh /usr/local/bin/
 
 WORKDIR /Windshaft-cartodb
 
-EXPOSE 80
+EXPOSE 8181
 
 # We configure the application using just the base config here. Additional configuration files can
 # be merged with the base by supplying their filenames as the CMD.

@@ -1,13 +1,19 @@
-version: '2'
+version: "2"
 services:
   cartodb-postgis:
     container_name: cartodb-postgis
     build:
       context: postgis
+    ports:
+      - 5432:5432
+
   cartodb-redis:
     container_name: cartodb-redis
     build:
       context: redis
+    ports:
+      - 6379:6379
+
   cartodb-sqlapi:
     depends_on:
       - cartodb-postgis
@@ -15,6 +21,9 @@ services:
     container_name: cartodb-sqlapi
     build:
       context: sqlapi
+    ports:
+      - 8080:8080
+
   cartodb-mapsapi:
     depends_on:
       - cartodb-postgis
@@ -22,6 +31,9 @@ services:
     container_name: cartodb-mapsapi
     build:
       context: mapsapi
+    ports:
+      - 8181:8181
+
   cartodb-editor:
     depends_on:
       - cartodb-postgis
@@ -29,20 +41,23 @@ services:
       - cartodb-mapsapi
       - cartodb-sqlapi
     container_name: cartodb-editor
+    command: ./docker-entrypoint.sh
     build:
       context: editor
-    environment:
-      - PUBLIC_PORT=3000
+    volumes:
+      - /workspaces/cartodb-docker/editor/config/base.database.yml:/cartodb/config/database.yml
+      - /workspaces/cartodb-docker/editor/config/base.app_config.yml:/cartodb/config/app_config.yml
+      - /workspaces/cartodb-docker/editor/docker-entrypoint.sh:/cartodb/docker-entrypoint.sh
     ports:
-      - 3001:3000
+      - 3000:3000
 
-  cartodb-router:
-    depends_on:
-      - cartodb-mapsapi
-      - cartodb-sqlapi
-      - cartodb-editor
-    container_name: cartodb-router
-    build:
-      context: router
-    ports:
-      - 8090:80
+  # cartodb-router:
+  #   depends_on:
+  #     - cartodb-mapsapi
+  #     - cartodb-sqlapi
+  #     - cartodb-editor
+  #   container_name: cartodb-router
+  #   build:
+  #     context: router
+  #   ports:
+  #     - 8090:80

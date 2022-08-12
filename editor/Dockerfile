@@ -102,9 +102,6 @@ ENV CARTODB_VERSION=4.45.0
 RUN git clone -c http.sslVerify=false https://github.com/CartoDB/cartodb.git
 
 
-RUN cd /cartodb
-RUN cp /cartodb/config/app_config.yml.sample /cartodb/config/app_config.yml
-RUN cp /cartodb/config/database.yml.sample /cartodb/config/database.yml
 
 WORKDIR /cartodb
 # Environment type.
@@ -135,30 +132,31 @@ RUN CPLUS_INCLUDE_PATH=/usr/include/gdal \
   /root/.cache \
   /root/.bundle \
   /root/.gem \
-  /root/.npm \
-  && mkdir -p /cartodb/docker-entrypoint-util
+  /root/.npm
+  # && mkdir -p /cartodb/docker-entrypoint-util
 
 # Copy resources.
-COPY util/* /cartodb/docker-entrypoint-util/
-COPY config/* /cartodb/config/
-COPY docker-entrypoint.sh /cartodb/
+# COPY util/* /cartodb/docker-entrypoint-util/
+# COPY config/* /cartodb/config/
+# COPY docker-entrypoint.sh /cartodb/
+
 
 EXPOSE 3000
 
 # We configure the application using just the base config files here. Additional configuration files
 # can be merged with the base by supplying their filenames as --app_config or --database option
 # arguments in the CMD.
-ENTRYPOINT [ \
-  "./docker-entrypoint.sh", \
-  "--app_config", "base.app_config.yml", \
-  "--database", "base.database.yml" \
-  ]
+# ENTRYPOINT [ \
+#   "./docker-entrypoint.sh", \
+#   "--app_config", "base.app_config.yml", \
+#   "--database", "base.database.yml" \
+#   ]
 
 # We merge the sample config files with the base configs by default.
 # Custom configuration may be used by extending this image as follows:
 # 1) COPY one or more config files into /cartodb/config/.
 # 2) Pass the filename(s) as --app_config or --database option arguments in the CMD.
-CMD [ \
-  "--app_config", "app_config.yml.sample", \
-  "--database", "database.yml.sample" \
-  ]
+# CMD [ \
+#   "--app_config", "app_config.yml.sample", \
+#   "--database", "database.yml.sample" \
+#   ]
