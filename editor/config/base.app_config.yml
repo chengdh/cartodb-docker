@@ -10,10 +10,10 @@ defaults: &defaults
     memory_limit:
   debug_assets: true
   mandatory_keys:     [layer_opts, sql_api, varnish_management, redis, session_domain]
-  session_domain:     'localhost.lan'
+  session_domain:     'cartodb.localhost'
   # If activated, urls will use usernames in format //SESSION_DOMAIN/user/USERNAME and ignore subdomains if present
-  subdomainless_urls: false
-  http_port:           3000 # nil|integer. HTTP port to use when building urls. Leave empty to use default (80)
+  subdomainless_urls: true 
+  http_port:           # 3000 # nil|integer. HTTP port to use when building urls. Leave empty to use default (80)
   https_port:          # nil|integer. HTTPS port to use when building urls. Leave empty to use default (443)
   # Setting this to true will enable ActiveController's enforcement of SSL.
   ssl_required: false
@@ -29,7 +29,7 @@ defaults: &defaults
   #   - foo.bar
   #   - carto.dev
   account_path:       '/account'
-  vizjson_cache_domains: ['.localhost.lan']
+  vizjson_cache_domains: ['cartodb.localhost']
   data_library:
     username:         'common-data'
     path:             '/data-library'
@@ -66,7 +66,7 @@ defaults: &defaults
       endpoint:   '/api/v2/sql'
       port:       8080
   api_requests_service_url: ''
-  developers_host:    'http://developers.localhost.lan:3000'
+  developers_host:    'http://developers.cartodb.localhost:3000'
   google_analytics:
     primary:          ''
     embeds:           ''

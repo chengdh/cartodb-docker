@@ -51,13 +51,13 @@ services:
     ports:
       - 3000:3000
 
-  # cartodb-router:
-  #   depends_on:
-  #     - cartodb-mapsapi
-  #     - cartodb-sqlapi
-  #     - cartodb-editor
-  #   container_name: cartodb-router
-  #   build:
-  #     context: router
-  #   ports:
-  #     - 8090:80
+  cartodb-router:
+    depends_on:
+      - cartodb-mapsapi
+      - cartodb-sqlapi
+      - cartodb-editor
+    container_name: cartodb-router
+    build:
+      context: router
+    ports:
+      - 8900:80
