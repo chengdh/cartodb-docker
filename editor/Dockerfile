@@ -113,8 +113,10 @@ RUN cd /cartodb && \
   rm -r /tmp/npm-* /root/.npm 
 
 # RUN apt-get install -y -q python-pip 
+RUN cd / && \
+    curl https://bootstrap.pypa.io/pip/2.7/get-pip.py | python
+
 RUN cd /cartodb && \
-  perl -pi -e 's/gdal==1\.10\.0/gdal==2.2.2/' python_requirements.txt && \
   CPLUS_INCLUDE_PATH=/usr/include/gdal  \
   C_INCLUDE_PATH=/usr/include/gdal \
   PATH=$PATH:/usr/include/gdal \

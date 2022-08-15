@@ -25,5 +25,5 @@ script/create_dev_user "$DEFAULT_USER" "$PASSWORD" "$EMAIL"
 echo "Starting Resque..."
 bundle exec ./script/resque &
 
-# echo "Starting the application..."
-exec bundle exec rails server
+
+bundle exec thin start --threaded -p 3000 --threadpool-size 5
