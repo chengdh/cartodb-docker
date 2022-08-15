@@ -34,16 +34,7 @@ RUN apt-get update \
   postgresql-10-postgis-2.4-scripts \
   && rm -rf /var/lib/apt/lists/*
 
-# CartoDB/cartodb-postgresql version
-ENV CARTODB_POSTGRESQL_VERSION=0.37.1
-
-RUN git clone \
-  -c http.sslVerify=false \
-  --branch ${CARTODB_POSTGRESQL_VERSION} \
-  --depth 1 https://github.com/CartoDB/cartodb-postgresql.git \
-  && cd cartodb-postgresql \
-  && make all install \
-  && mkdir -p /docker-entrypoint-initdb.d
+RUN mkdir -p /docker-entrypoint-initdb.d
 
 COPY initdb-postgis.sh /docker-entrypoint-initdb.d/01-postgis.sh
 
