@@ -41,6 +41,11 @@ COPY initdb-postgis.sh /docker-entrypoint-initdb.d/01-postgis.sh
 # Let Postgres listen on all addresses (it's just localhost by default).
 ENTRYPOINT [ "docker-entrypoint.sh", "postgres", "-c", "listen_addresses=*" ]
 
+RUN git clone https://github.com/CartoDB/cartodb-postgresql.git
+RUN cd cartodb-postgresql
+RUN git checkout master 
+RUN make all install
+
 # Empty CMD directive to override CMD in the base image.
 # Additional configuration options can be passed via a custom command.
 CMD []

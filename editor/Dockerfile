@@ -131,3 +131,7 @@ RUN cd /cartodb && \
   export PATH=$PATH:$PWD/node_modules/grunt-cli/bin && \
   /bin/bash -l -c 'bundle exec grunt'
 
+# Copy resources.
+COPY docker-entrypoint.sh /cartodb/
+
+WORKDIR /cartodb
