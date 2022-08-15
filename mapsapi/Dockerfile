@@ -18,14 +18,15 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
   && rm -rf /var/lib/apt/lists/*
 
 # CartoDB/Windshaft-cartodb version
-ENV WINDSHAFT_CARTODB_VERSION=9.0.0
+ENV WINDSHAFT_CARTODB_VERSION=master
 
 # Install the application.
 # RUN mkdir /Windshaft-cartodb \
 #   && curl -L https://github.com/CartoDB/Windshaft-cartodb/archive/${WINDSHAFT_CARTODB_VERSION}.tar.gz \
 #   | tar -zx --strip-components=1 -C Windshaft-cartodb \
-RUN  git clone -c http.sslVerify=false https://github.com/CartoDB/Windshaft-cartodb.git \
+RUN  git clone https://github.com/CartoDB/Windshaft-cartodb.git \
   && cd Windshaft-cartodb \
+  && git checkout $WINDSHAFT_CARTODB_VERSION \
   && npm install \
   && mkdir /Windshaft-cartodb/logs
 
@@ -34,8 +35,6 @@ COPY config/*.js /Windshaft-cartodb/config/environments/
 COPY docker-entrypoint.sh /usr/local/bin/
 
 WORKDIR /Windshaft-cartodb
-
-EXPOSE 8181
 
 # We configure the application using just the base config here. Additional configuration files can
 # be merged with the base by supplying their filenames as the CMD.

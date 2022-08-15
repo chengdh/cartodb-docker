@@ -19,13 +19,14 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
 
 #
 # CartoDB/CartoDB-SQL-API version
-ENV CARTODB_SQL_API_VERSION=6.0.2
+ENV CARTODB_SQL_API_VERSION=master
 
 # RUN mkdir /CartoDB-SQL-API \
 #   && curl -L https://github.com/CartoDB/CartoDB-SQL-API/archive/${CARTODB_SQL_API_VERSION}.tar.gz \
 #   | tar -zx --strip-components=1 -C CartoDB-SQL-API \
-RUN  git clone -c http.sslVerify=false https://github.com/CartoDB/CartoDB-SQL-API.git \
+RUN  git clone https://github.com/CartoDB/CartoDB-SQL-API.git \
   && cd CartoDB-SQL-API \
+  && git checkout $CARTODB_SQL_API_VERSION \
   && npm install
 
 # Copy resources.
@@ -33,8 +34,6 @@ COPY config/*.js /CartoDB-SQL-API/config/environments/
 COPY docker-entrypoint.sh /usr/local/bin/
 
 WORKDIR /CartoDB-SQL-API
-
-EXPOSE 80
 
 # We configure the application using just the base config here. Additional configuration files can
 # be merged with the base by supplying their filenames as the CMD.
