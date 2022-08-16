@@ -1,4 +1,11 @@
-version: "2"
+version: '3.7'
+
+volumes:
+    cartodb-redis-data:
+    cartodb-postgis-data:
+    cartodb-postgis-extensions:
+    cartodb-uploads:
+    bundle_path:
 services:
   cartodb-postgis:
     container_name: cartodb-postgis
@@ -8,6 +15,9 @@ services:
       - 5432:5432
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - cartodb-postgis-data:/var/lib/postgresql/data
+      - cartodb-postgis-extensions:/usr/share/postgresql
 
   cartodb-redis:
     container_name: cartodb-redis
@@ -15,6 +25,9 @@ services:
       context: redis
     ports:
       - 6379:6379
+    volumes:
+      - cartodb-redis-data:/data
+
 
   cartodb-sqlapi:
     depends_on:
@@ -25,6 +38,8 @@ services:
       context: sqlapi
     ports:
       - 8080:8080
+    volumes:
+      - /workspaces/CartoDB-SQL-API:/CartoDB-SQL-API
 
   cartodb-mapsapi:
     depends_on:
@@ -35,6 +50,8 @@ services:
       context: mapsapi
     ports:
       - 8181:8181
+    volumes:
+      - /workspaces/Windshaft-cartodb:/Windshaft-cartodb
 
   cartodb-editor:
     depends_on:
@@ -44,12 +61,14 @@ services:
       - cartodb-sqlapi
     container_name: cartodb-editor
     command: ./docker-entrypoint.sh
+    environment:
+      - BUNDLE_PATH=/bundle/vendor
     build:
       context: editor
     volumes:
-      - /workspaces/cartodb-docker/editor/config/base.database.yml:/cartodb/config/database.yml
-      - /workspaces/cartodb-docker/editor/config/base.app_config.yml:/cartodb/config/app_config.yml
-      - /workspaces/cartodb-docker/editor/docker-entrypoint.sh:/cartodb/docker-entrypoint.sh
+      - bundle_path:/bundle
+      - /workspaces/cartodb:/cartodb
+      - ./editor/docker-entrypoint.sh:/cartodb/docker-entrypoint.sh
     ports:
       - 3000:3000
 
@@ -61,5 +80,7 @@ services:
     container_name: cartodb-router
     build:
       context: router
+    volumes:
+        - cartodb-uploads:/var/www/uploads    
     ports:
       - 80:80
