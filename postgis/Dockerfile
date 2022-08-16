@@ -41,8 +41,8 @@ COPY initdb-postgis.sh /docker-entrypoint-initdb.d/01-postgis.sh
 # Let Postgres listen on all addresses (it's just localhost by default).
 ENTRYPOINT [ "docker-entrypoint.sh", "postgres", "-c", "listen_addresses=*" ]
 
-# RUN git -c http.sslVerify=false  clone https://github.com/CartoDB/cartodb-postgresql.git
-RUN git clone https://cheng.donghui:chengdonghui@git.mapscloud.cn/carto/cartodb-postgresql.git
+RUN git -c http.sslVerify=false  clone https://github.com/CartoDB/cartodb-postgresql.git
+# RUN git clone https://cheng.donghui:chengdonghui@git.mapscloud.cn/carto/cartodb-postgresql.git
 RUN cd cartodb-postgresql && \
   git checkout master  && \
   make all install

@@ -107,14 +107,16 @@ RUN git clone -c submodule."private".update=none --recursive https://github.com/
   cd cartodb && \
   git checkout $CARTODB_VERSION
 
+
 RUN cd /cartodb && \
   npm install && \
-  npm run carto-node && npm run build:static && \
+  npm run carto-node && \
+  npm run build:static && \
   rm -r /tmp/npm-* /root/.npm 
 
 # RUN apt-get install -y -q python-pip 
 RUN cd / && \
-    curl https://bootstrap.pypa.io/pip/2.7/get-pip.py | python
+  curl https://bootstrap.pypa.io/pip/2.7/get-pip.py | python
 
 RUN cd /cartodb && \
   CPLUS_INCLUDE_PATH=/usr/include/gdal  \

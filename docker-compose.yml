@@ -6,6 +6,7 @@ volumes:
     cartodb-postgis-extensions:
     cartodb-uploads:
     bundle_path:
+    node_modules:
 services:
   cartodb-postgis:
     container_name: cartodb-postgis
@@ -38,8 +39,8 @@ services:
       context: sqlapi
     ports:
       - 8080:8080
-    volumes:
-      - /workspaces/CartoDB-SQL-API:/CartoDB-SQL-API
+    # volumes:
+    #   - /workspaces/CartoDB-SQL-API:/CartoDB-SQL-API
 
   cartodb-mapsapi:
     depends_on:
@@ -50,8 +51,8 @@ services:
       context: mapsapi
     ports:
       - 8181:8181
-    volumes:
-      - /workspaces/Windshaft-cartodb:/Windshaft-cartodb
+    # volumes:
+    #   - /workspaces/Windshaft-cartodb:/Windshaft-cartodb
 
   cartodb-editor:
     depends_on:
@@ -66,9 +67,12 @@ services:
     build:
       context: editor
     volumes:
-      - bundle_path:/bundle
       - /workspaces/cartodb:/cartodb
+      - bundle_path:/bundle
+      - node_modules:/cartodb/node_modules
       - ./editor/docker-entrypoint.sh:/cartodb/docker-entrypoint.sh
+      - ./editor/config/base.app_config.yml:/cartodb/config/app_config.yml
+      - ./editor/config/base.database.yml:/cartodb/config/database.yml
     ports:
       - 3000:3000
 
