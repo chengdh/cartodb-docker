@@ -25,5 +25,4 @@ script/create_dev_user "$DEFAULT_USER" "$PASSWORD" "$EMAIL"
 echo "Starting Resque..."
 bundle exec ./script/resque &
 
-
 bundle exec thin start --threaded -p 3000 --threadpool-size 5
