@@ -67,7 +67,7 @@ services:
     build:
       context: editor
     volumes:
-      - /workspaces/cartodb:/cartodb
+      # - /workspaces/cartodb:/cartodb
       - bundle_path:/bundle
       - node_modules:/cartodb/node_modules
       - ./editor/docker-entrypoint.sh:/cartodb/docker-entrypoint.sh

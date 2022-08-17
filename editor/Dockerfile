@@ -107,6 +107,8 @@ RUN git clone -c submodule."private".update=none --recursive https://github.com/
   cd cartodb && \
   git checkout $CARTODB_VERSION
 
+COPY package.json /cartodb/package.json
+COPY package-lock.json /cartodb/package-lock.json
 
 RUN cd /cartodb && \
   npm install && \

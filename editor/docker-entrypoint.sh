@@ -19,8 +19,8 @@ echo "Initializing the metadata database..."
 RAILS_ENV=development bundle exec rake db:create
 RAILS_ENV=development  bundle exec rake db:migrate
 
-echo "Creating the default user, who will own the common data..."
-script/create_dev_user "$DEFAULT_USER" "$PASSWORD" "$EMAIL"
+# echo "Creating the default user, who will own the common data..."
+# script/create_dev_user "$DEFAULT_USER" "$PASSWORD" "$EMAIL"
 
 echo "Starting Resque..."
 bundle exec ./script/resque &
