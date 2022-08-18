@@ -138,6 +138,6 @@ RUN cd /cartodb && \
   /bin/bash -l -c 'bundle exec grunt'
 
 # Copy resources.
-COPY docker-entrypoint.sh /cartodb/
+ADD docker-entrypoint.sh /cartodb/
 
 WORKDIR /cartodb

@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # login credentials for cartodb user that will be created
-DEFAULT_USER=${DEFAULT_USER:-username}
-PASSWORD=${PASSWORD:-password}
-EMAIL=${EMAIL:-username@example.com}
+# DEFAULT_USER=${DEFAULT_USER:-username}
+# PASSWORD=${PASSWORD:-password}
+# EMAIL=${EMAIL:-username@example.com}
 
 # host and port on which the app will be exposed
-PUBLIC_HOST=${PUBLIC_HOST:-localhost}
-PUBLIC_PORT=${PUBLIC_PORT:-80}
+# PUBLIC_HOST=${PUBLIC_HOST:-localhost}
+# PUBLIC_PORT=${PUBLIC_PORT:-80}
 
 # echo "Writing the configuration files..."
 # DEFAULT_USER=$DEFAULT_USER \
@@ -16,8 +16,8 @@ PUBLIC_PORT=${PUBLIC_PORT:-80}
 #   node docker-entrypoint-util/configure $@
 
 echo "Initializing the metadata database..."
-RAILS_ENV=development bundle exec rake db:create
-RAILS_ENV=development  bundle exec rake db:migrate
+bundle exec rake db:create
+bundle exec rake db:migrate
 
 # echo "Creating the default user, who will own the common data..."
 # script/create_dev_user "$DEFAULT_USER" "$PASSWORD" "$EMAIL"
@@ -25,4 +25,4 @@ RAILS_ENV=development  bundle exec rake db:migrate
 echo "Starting Resque..."
 bundle exec ./script/resque &
 
-bundle exec thin start --threaded -p 3000 --threadpool-size 5
+bundle exec thin start --threaded -p 3000
