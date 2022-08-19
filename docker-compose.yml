@@ -20,6 +20,16 @@ services:
       - cartodb-postgis-data:/var/lib/postgresql/data
       - cartodb-postgis-extensions:/usr/share/postgresql
 
+  pgweb:
+    container_name: pgweb
+    image: sosedoff/pgweb
+    ports: 
+      - "8091:8081" 
+    environment:
+      - DATABASE_URL=postgres://postgres@cartodb-postgis:5432/postgres?sslmode=disable
+    depends_on:
+      - cartodb-postgis
+
   cartodb-redis:
     container_name: cartodb-redis
     build:
@@ -68,7 +78,7 @@ services:
       context: editor
     volumes:
       - /workspaces/cartodb:/cartodb
-      - /cartodb/.git/
+      # - /cartodb/.git/
       - bundle_path:/bundle
       - node_modules:/cartodb/node_modules
       - ./editor/docker-entrypoint.sh:/cartodb/docker-entrypoint.sh
