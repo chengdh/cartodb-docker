@@ -4,20 +4,23 @@ defaults: &defaults
   #  http:             "http.cdn.host"
   #  https:            "https.cdn.host"
   http_client_logs: true
+  # deeptime_root_url:   "https://deep-time.org"
   ogr2ogr:
     binary:           'which ogr2ogr'
     csv_guessing:     true
     memory_limit:
   debug_assets: true
   mandatory_keys:     [layer_opts, sql_api, varnish_management, redis, session_domain]
-  session_domain:     'cartodb.localhost'
+  # session_domain:     'cartodb.localhost'
+  session_domain:     'carto-cdh.deep-time.org'
   # If activated, urls will use usernames in format //SESSION_DOMAIN/user/USERNAME and ignore subdomains if present
   subdomainless_urls: true 
   http_port:           # 3000 # nil|integer. HTTP port to use when building urls. Leave empty to use default (80)
   https_port:          # nil|integer. HTTPS port to use when building urls. Leave empty to use default (443)
   ssl_required: false
   secret_token:       '71c2b25921b84a1cb21c71503ab8fb23'
-  account_host:       'cartodb.localhost:3000'
+  # account_host:       'cartodb.localhost:3000'
+  account_host:       'carto-cdh.deep-time.org:3000'
   # Here you can define other hosts different to account_host that also will be CORS enabled
   # cors_enabled_hosts:
   #   - example.com
@@ -35,28 +38,33 @@ defaults: &defaults
     filter: 'mapnik'
     internal:
       protocol:      'http'
-      domain:        'cartodb.localhost'
+      # domain:        'cartodb.localhost'
+      domain:        'carto-cdh.deep-time.org'
       port:          '80'
       verifycert:     false
     private:
       protocol:      'http'
-      domain:        'cartodb.localhost'
+      # domain:        'cartodb.localhost'
+      domain:        'carto-cdh.deep-time.org'
       port:          '80'
       verifycert:     false
     public:
       protocol:      'http'
-      domain:        'cartodb.localhost'
+      # domain:        'cartodb.localhost'
+      domain:        'carto-cdh.deep-time.org'
       port:          '80'
       verifycert:     false
   sql_api:
     private:
       protocol:   'http'
-      domain:     'cartodb.localhost'
+      # domain:     'cartodb.localhost'
+      domain:     'carto-cdh.deep-time.org'
       endpoint:   '/api/v2/sql'
       port:       80
     public:
       protocol:   'http'
-      domain:     'cartodb.localhost'
+      # domain:     'cartodb.localhost'
+      domain:     'carto-cdh.deep-time.org'
       endpoint:   '/api/v2/sql'
       port:       80
   api_requests_service_url: ''
@@ -297,10 +305,12 @@ defaults: &defaults
         interactivity:      "cartodb_id"
         debug:              false
         visible:            true
-        tiler_domain:       "cartodb.localhost"
+        # tiler_domain:       "cartodb.localhost"
+        tiler_domain:       "carto-cdh.deep-time.org"
         tiler_port:         "80"
         tiler_protocol:     "http"
-        sql_domain:         "cartodb.localhost"
+        # sql_domain:         "cartodb.localhost"
+        tiler_domain:       "carto-cdh.deep-time.org"
         sql_port:           "80"
         sql_protocol:       "http"
         extra_params:       { cache_policy: 'persist' }
@@ -312,7 +322,8 @@ defaults: &defaults
       kind: "background"
       options: { color: '#ffffff' }
   cartodb_com_hosted: false
-  cartodb_central_domain_name: 'cartodb.localhost'
+  # cartodb_central_domain_name: 'cartodb.localhost'
+  cartodb_central_domain_name: 'carto-cdh.deep-time.org'
   aws:
     s3:
       access_key_id: "test"
@@ -329,7 +340,8 @@ defaults: &defaults
     #   max_size_in_bytes: 1048576 # Optional, default is 1 MB
     #   location: 'organization_assets' # Optional subdirectory for local assets, default is 'organization_assets'
   app_assets:
-    asset_host: "//cartodb.localhost"
+    # asset_host: "//cartodb.localhost"
+    asset_host: "//carto-cdh.deep-time.org"
   avatars:
     gravatar_enabled: true
     base_url: '/assets/unversioned/images/avatars'

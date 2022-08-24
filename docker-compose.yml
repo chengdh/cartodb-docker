@@ -74,6 +74,7 @@ services:
     command: ./docker-entrypoint.sh
     environment:
       - BUNDLE_PATH=/bundle/vendor
+      - CARTO_BUILDER_LOG_TO_STDOUT=true
     build:
       context: editor
     volumes:
@@ -97,5 +98,6 @@ services:
       context: router
     volumes:
         - cartodb-uploads:/var/www/uploads    
+        - ./router/cartodb.nginx.proxy.conf:/etc/nginx/conf.d/default.conf
     ports:
       - 80:80
