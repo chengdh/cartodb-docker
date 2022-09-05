@@ -58,6 +58,7 @@
     "distinct-colors": "^3.0.0",
     "fastclick": "^1.0.6",
     "html-webpack-plugin": "^3.2.0",
+    "infinite-scroll": "^4.0.1",
     "internal-carto.js": "JaneFeel/carto.js#master",
     "jquery": "2.1.4",
     "leaflet": "CartoDB/Leaflet#v1.3.1-carto1",
@@ -66,14 +67,14 @@
     "moment": "2.18.1",
     "moment-timezone": "^0.5.13",
     "node-polyglot": "1.0.0",
-    "npm": "^8.17.0",
-    "perfect-scrollbar": "github:CartoDB/perfect-scrollbar#master",
+    "perfect-scrollbar": "CartoDB/perfect-scrollbar#master",
     "postcss": "5.0.19",
     "postcss-scss": "0.4.0",
     "postcss-strip-inline-comments": "0.1.5",
     "promise-polyfill": "https://registry.npmjs.org/promise-polyfill/-/promise-polyfill-6.1.0.tgz",
     "queue-async": "1.2.1",
     "rangeslider.js": "2.3.0",
+    "slick-carousel": "^1.8.1",
     "tinycolor2": "^1.4.1",
     "torque.js": "CartoDB/torque#master",
     "trackjs": "^3.1.2",
@@ -90,7 +91,7 @@
     "webpack": "4.12.0",
     "webpack-cli": "^3.0.4",
     "whatwg-fetch": "https://registry.npmjs.org/whatwg-fetch/-/whatwg-fetch-2.0.3.tgz",
-    "yarn": "^1.22.19"
+    "js-cookie": "^3.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

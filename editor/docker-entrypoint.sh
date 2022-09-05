@@ -25,4 +25,5 @@ bundle exec rake db:migrate
 echo "Starting Resque..."
 bundle exec ./script/resque &
 
-bundle exec thin start --threaded -p 3000
+# bundle exec thin start --threaded -p 3000
+bundle exec thin start -p 3000
