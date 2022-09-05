@@ -107,14 +107,7 @@ RUN git clone -c submodule."private".update=none --recursive https://github.com/
   cd cartodb && \
   git checkout $CARTODB_VERSION
 
-COPY package.json /cartodb/package.json
-COPY package-lock.json /cartodb/package-lock.json
-
-RUN cd /cartodb && \
-  npm install && \
-  npm run carto-node && \
-  npm run build:static && \
-  rm -r /tmp/npm-* /root/.npm 
+ 
 
 # RUN apt-get install -y -q python-pip 
 RUN cd / && \
@@ -132,11 +125,19 @@ RUN cd /cartodb && \
   bundle update thin && \
   /bin/bash -l -c 'bundle install'
 
-RUN cd /cartodb && \
-  cp config/grunt_development.json ./config/grunt_true.json && \
-  export PATH=$PATH:$PWD/node_modules/grunt-cli/bin && \
-  /bin/bash -l -c 'bundle exec grunt'
+# RUN cd /cartodb && \
+#   cp config/grunt_development.json ./config/grunt_true.json && \
+#   export PATH=$PATH:$PWD/node_modules/grunt-cli/bin && \
+#   /bin/bash -l -c 'bundle exec grunt'
 
+COPY package.json /cartodb/package.json
+COPY package-lock.json /cartodb/package-lock.json
+
+RUN cd /cartodb && \
+  npm install && \
+  npm run carto-node && \
+  npm run build:static && \
+  rm -r /tmp/npm-* /root/.npm
 # Copy resources.
 ADD docker-entrypoint.sh /cartodb/
 
