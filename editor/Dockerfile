@@ -107,7 +107,7 @@ RUN git clone -c submodule."private".update=none --recursive https://github.com/
   cd cartodb && \
   git checkout $CARTODB_VERSION
 
- 
+
 
 # RUN apt-get install -y -q python-pip 
 RUN cd / && \
@@ -133,11 +133,11 @@ RUN cd /cartodb && \
 COPY package.json /cartodb/package.json
 COPY package-lock.json /cartodb/package-lock.json
 
-RUN cd /cartodb && \
-  npm install && \
-  npm run carto-node && \
-  npm run build:static && \
-  rm -r /tmp/npm-* /root/.npm
+# RUN cd /cartodb && \
+#   npm install && \
+#   npm run carto-node && \
+#   npm run build:static && \
+#   rm -r /tmp/npm-* /root/.npm
 # Copy resources.
 ADD docker-entrypoint.sh /cartodb/
 
